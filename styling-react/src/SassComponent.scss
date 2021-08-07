@@ -1,22 +1,4 @@
-// src\SassComponent.scss
-
-// 변수 사용하기
-$red: #fa5252;
-$orange: #fd7e14;
-$yellow: #fcc419;
-$green: #40c057;
-$blue: #339af0;
-$indigo: #5c7cfa;
-$violet: #7950f2;
-
-// 믹스인 만들기 (재사용되는 스타일 블록을 함수처럼 사용 가능
-
-@mixin square($size) {
-  $calculate: 32px * $size;
-  width: $calculate;
-  height: $calculate;
-}
-
+@import "./styles/utils";
 .SassComponent {
   display: flex;
   .box {
@@ -24,20 +6,20 @@ $violet: #7950f2;
     background: red;
     cursor: pointer;
     transition: all 0.3s ease-in;
-    & .red {
+    &.red {
       // red 클래스가 .box와 함께 사용되었을 때
       background: $red;
       @include square(1);
     }
-    & .orange {
+    &.orange {
       background: $orange;
       @include square(2);
     }
-    & .yellow {
+    &.yellow {
       background: $yellow;
       @include square(3);
     }
-    & .green {
+    &.green {
       background: $green;
       @include square(4);
     }
@@ -45,7 +27,7 @@ $violet: #7950f2;
       background: $indigo;
       @include square(5);
     }
-    & .violet {
+    &.violet {
       background: $violet;
       @include square(7);
     }
