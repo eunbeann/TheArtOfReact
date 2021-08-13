@@ -1,6 +1,6 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
-
+    /* jshint ignore:start */
 const Box = styled.div`
   /* props 로 넣어준 값을 직접 전달해줄 수 있습니다. */
   background: ${props => props.color || 'blue'};
@@ -44,12 +44,12 @@ const Button = styled.button`
       border: 2px solid white;
       color: white;
       &:hover {
-        background: white;
+          background: white;
         color: black;
       }
     `};
   & + button {
-    margin-left: 1rem;
+      margin-left: 1rem;
   }
 `;
 
@@ -59,5 +59,5 @@ const StyledComponent = () => (
     <Button inverted={true}>테두리만</Button>
   </Box>
 );
-
+    /* jshint ignore:end */
 export default StyledComponent;
