@@ -30,17 +30,17 @@ function TodoReducer(todos, action) {
 			return todos.map(todo => 
 				todo.id === action.id ? { ...todo, checked: !todo.checked } : todo,);
 			default:
-
+				return todos;
 	}
 }
 
 const App = () => {
-	const [todos, setTodos] = useState(createBulkTodos);
+	const [todos, dispatch] = useReducer(TodoReducer, undefined, createBulkTodos);
 
 	//고윳값으로 사용될 id
 	//ref를 사용하여 변수 남기
 
-	const nextId = useRef(4);
+	const nextId = useRef(2501);
 
 	const onInsert = useCallback(text=> {
 			const todo = {
@@ -48,23 +48,19 @@ const App = () => {
 				text,
 				checked:false,
 			};
-			setTodos(todos => todos.concat(todo));
+			dispatch( { type: 'INSERT', todo});
 			nextId.current += 1; //nextId 1씩 더하기
 		},[]);
 
-	const onRemove = useCallback(
-		id => {
-			setTodos(todos => todos.filter(todo => todo.id !== id));
+	const onRemove = useCallback(id => {
+			dispatch({ type: 'REMOVE', id });
 		},[]);
 
 	const onToggle = useCallback(id => {
-		setTodos(todos =>
-			todos.map(todo =>
-				todo.id === id ? { ...todo, checked: !todo.checked } : todo,
-			),
-		);
-	}, []);
+		dispatch({ type: 'TOGGLE', id });
+	},[]);
 
+	
 	return (
 	<TodoTemplate>
 		<TodoInsert onInsert={onInsert} />
