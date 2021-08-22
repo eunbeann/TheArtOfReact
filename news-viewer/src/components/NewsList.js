@@ -1,9 +1,10 @@
 // components/NewsList
 
-import React, {useState, useEffect} from "react";
+import React from "react";
 import styled from "styled-components";
 import NewsItem from "./NewsItem";
 import axios from 'axios';
+import usePromise from "../lib/uesPromise";
 
 const NewsListBlock = styled.div`
     box-sizing:border-box;
@@ -18,37 +19,30 @@ const NewsListBlock = styled.div`
     }
 `;
 
-const NewsList = () => {
-    const [articles, setArticles] = useState(null);
-    const [loading, setLoading] = useState(false);
-    
-    useEffect(() => {
-        // async를 사용하는 함수 따로 선언
-        const fetchData = async () => {
-            setLoading(true);
-            try {
-                const response = await axios.get(
-                    'https://newsapi.org/v2/top-headlines?country=kr&apiKey=d50b9493091443a48657199e0a0b4c22',
-                );
-                setArticles(response.data.articles);
-            } catch (e) {
-                console.log(e);
-            }
-            setLoading(false);
-        };
-        fetchData();
-    }, []);
+const NewsList = ({ category }) => {    
+        const [loading, response, error] = usePromise(()=> {
+            const query = category === 'all'?'' : `&category=${category}`;
+            return axios.get(
+                `https://newsapi.org/v2/top-headlines?country=kr${query}&apiKey=d50b9493091443a48657199e0a0b4c22`,
+            );
+        }, [category]);
 
     // 대기 중일때
     if (loading) {
         return <NewsListBlock> 대기 중 .... </NewsListBlock>;
     }
-    //아직 article 값이 설정되지 않았을 때
-    if (!articles) {
+    //아직 response 값이 설정되지 않았을 때
+    if (!response) {
         return null;
     }
 
-    //article 값이 유효할 때
+    // 에러 발생시
+    if (error) {
+        return <NewsListBlock>에러 발생!</NewsListBlock>
+    }
+
+    //response 값이 유효할 때
+    const { articles } = response.date;
     return (
         <NewsListBlock>
             {articles.map(article => (
@@ -56,6 +50,6 @@ const NewsList = () => {
             ))}
         </NewsListBlock>
     );
-    };
+};
 
 export default NewsList;
