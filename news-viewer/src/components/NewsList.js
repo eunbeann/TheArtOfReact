@@ -52,4 +52,5 @@ const NewsList = ({ category }) => {
     );
 };
 
+
 export default NewsList;
