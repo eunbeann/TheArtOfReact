@@ -4,10 +4,10 @@ import palette from '../../lib/styles/palette';
 
 const StyledButton = styled.button`
     border: none;
-    border-radius: 1rem;
+    border-radius: 4px;
     font-size: 1rem;
     font-weight: bold;
-    padding: 0 25rem 1rem;
+    padding: 0.25rem 1rem;
     color: white;
     outline: none;
     cursor: pointer;
@@ -19,6 +19,6 @@ const StyledButton = styled.button`
 ;
 `;
 
-const button = props => <StyledButton {...props} />;
+const Button = props => <StyledButton {...props} />;
 
-exprot default button;
+export default Button;
