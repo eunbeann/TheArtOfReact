@@ -1,7 +1,7 @@
 import React from 'react';
 
-const PostPage = () => {
-    return <div>포스트 읽기</div>
+const WritePage = () => {
+    return <div>글쓰기</div>
 };
 
-export default PostPage;
+export default WritePage;
