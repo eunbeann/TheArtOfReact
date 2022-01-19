@@ -20,7 +20,7 @@
     - 반영하는 부분에서 보통 뷰를 변형(mutate)함.
     - 예를 들면
     
-    ```json
+    ```javascript
     {
     "title":"Hello",
     "contents":"Hello World",
@@ -70,7 +70,9 @@ render() { ... }
     1. 문자열 형태의 HTML 코드 생성
     2. 특정 DOM에 해당 내용을 주입하면 이벤트 적용
 
-### 1.1.1.2. 조화 과정
+### 1.1.1.2. 조화(reconciliation) 과정
+
+- 재조정이라고도 함 (PGL강의)
 
 - 리액트 라이브러리의 업데이트 진행 방법
     1. 리액트에서의 뷰 업데이트 "조화(reconciliation) 과정 거친다"가 더 정확한 표현. 
