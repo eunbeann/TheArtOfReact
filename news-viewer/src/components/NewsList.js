@@ -4,6 +4,7 @@ import React,{useState, useEffect} from 'react'
 import styled from 'styled-components'
 import axios from 'axios';
 import NewsItem from './NewsItem'
+import usePromise from '../lib/usePromise';
 
 
 const NewsItemBlock = styled.div`
@@ -19,38 +20,27 @@ const NewsItemBlock = styled.div`
     }
     `;
 
+const WeatherAPIKEY = process.env.REACT_APP_WEATHER_API_KEY;
 const NewsList = ({ category }) => {
-    
-    const [articles, setArticles] = useState(null);
-    const [loading, setLoading] = useState(false);
-    const WeatherAPIKEY = process.env.REACT_APP_WEATHER_API_KEY;
-    useEffect(() => {
-        // async를 사용하는 함수 따로 선언
-        const fetchData = async () => {
-            setLoading(true);
-            try {
-                const query = category === 'all' ? '' : `&category=${category}`;
-                const response = await axios.get(
-                    `https://newsapi.org/v2/top-headlines?country=kr${query}&apiKey=${WeatherAPIKEY}`,
-                );
-                console.log("response", response.config.url)
-                setArticles(response.data.articles);
-            } catch (e) {
-                console.log(e);
-            }
-            setLoading(false);
-        }; fetchData();
-        // 카테고리 클릭시마다 렌더링 안돼서 이유가 뭐지 했는데 여기 []에 category 안 넣어줘서 그런거였음
-    }, [category]);
+    const [loading, response, error] = usePromise(() => {
+        const query = category === 'all' ? '' : `&category=${category}`;
+        return axios.get(`https://newsapi.org/v2/top-headlines?country=kr${query}&apiKey=${WeatherAPIKEY}`,)
+    }, [category])
+
     // 대기 중일 떄
     if (loading) {
         return <NewsItemBlock>대기 중...</NewsItemBlock>
     }
-    // 아직 articles 값이 설정되지 않았을 때
-    if (!articles) {
+    // 아직 response 값이 설정되지 않았을 때
+    if (!response) {
         return null;
     }
-    // articles 값이 유효할 때    
+    // 에러가 발생했을 때
+    if (error) {
+        return <NewsItemBlock>에러 발생!</NewsItemBlock>
+    }
+    // response 값이 유효할 때
+    const { articles } = response.data;
     return (
         <NewsItemBlock>
             {articles.map(article => (
