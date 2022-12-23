@@ -98,6 +98,7 @@ export default ColorBox;
 - 이런 패턴을 `Function as Child` 혹은 `Render Props` 라고 함
 - 컴포넌트의 children이 있어야 할 자리에 일반 JSX 혹은 문자열이 아닌 함수를 전달하는 것
 - Render Props 패턴이 헷갈릴 때 살펴볼 예제
+
   ```jsx
   import React from 'react';
   const RenderPropsSample = ({ children }) => {
@@ -196,7 +197,9 @@ export default App;
 
 - Context의 value 값에는 상태값만이 아닌 함수 전달도 가능
 - ColorContext의 코드 수정하기
+
   - 오류가 발생하지만 나중에 수정할 것 이므로 일단 진행
+
   ```jsx
   import { createContext, useState } from "react";
 
@@ -229,11 +232,11 @@ export default App;
 
   export default ColorContext;
   ```
+
   - ColorProvider라는 컴포넌트 새로 작성
   - 그 컴포넌트에는 ColorContext.Provider를 렌더링함.
   - 이 Provider의 value에는 상태는 state로, 업데이트 함수는 actions로 묶어서 전달.
-  - Context에서 값을 동적으로 사용할 때 반드시 묶어줄 필요는 없으나 state와 actions 객체를 따로따로 분리해 주면 나중에 다른 컴포넌트에서 Context 값을 사용할 때 편함.
-    -
+  - ## Context에서 값을 동적으로 사용할 때 반드시 묶어줄 필요는 없으나 state와 actions 객체를 따로따로 분리해 주면 나중에 다른 컴포넌트에서 Context 값을 사용할 때 편함.
   - createContext를 사용할 때 기본값으로 사용할 객체도 수정.
     - createContext의 기본값은 실제 Provider의 value에 넣는 객체의 형태와 일치시켜 주는 것이 좋음.
     - Context의 코드를 볼 때 내부 값이 어떻게 구성되어 있는지 파악하기도 쉽고, 실수로 Provider를 사용하지 않았을 때 리액트 애플리케이션에서 에러가 발생하지 않음.
