@@ -4,6 +4,4 @@
 
 노션으로 책 정리, 동일 내용 md 업로드
 
-+ 22년 1월 PGL 하면서 추가 + 수정
-
 https://eunbeann.notion.site/React-b160b2492b604a4f9671ea5fc55e1404
