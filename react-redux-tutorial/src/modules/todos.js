@@ -5,7 +5,7 @@ const INSERT = 'todos/INSERT'; //새로운 todo를 등록함
 const TOGGLE = 'todos/TOGGLE'; //todo를 체크/ 체크 해제함
 const REMOVE = 'todos/REMOVE'; // todo를 제거함
 
-export const chageInput = input => ({
+export const changeInput = input => ({
     type: CHANGE_INPUT,
     input
 });
@@ -67,7 +67,7 @@ function todos(state = initialState, action) {
             return {
                 ...state,
                 todos: state.todos.map(todo =>
-                    todo.id === action.id ? { ...todo, done: !todo.done } : todo)
+                    todo.id === action.id ? {...todo, done: !todo.done } : todo)
             };
         case REMOVE:
             return {
