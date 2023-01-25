@@ -8,9 +8,10 @@ import reportWebVitals from './reportWebVitals';
 import { Provider } from 'react-redux';
 import rootReducer from './modules';
 import { applyMiddleware, createStore } from 'redux';
-import loggerMiddlerware from './lib/loggerMiddlerware';
+import { createLogger } from 'redux-logger';
 
-const store = createStore(rootReducer, applyMiddleware(loggerMiddlerware));
+const logger = createLogger();
+const store = createStore(rootReducer, applyMiddleware(logger));
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(
