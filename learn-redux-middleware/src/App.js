@@ -1,3 +1,5 @@
+// App.js
+
 import React from 'react'
 import CounterContainers from './containers/CounterContainers'
 
